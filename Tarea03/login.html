@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="author" content="Pedro.J"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="description" content="Tarea 03 Desarrollo web entorno cliente"> 
+    <title>Tarea03</title>
+</head>
+<body>
+    <h1><em>“Registro del trabajador”</em></h1>
+    <script>
+        var salir = true; //Para salir del bucle
+        var intentos = 1; //contador de intentos
+        
+        while( salir == true ){ //bucle de peticiones 
+            var nombre = prompt('Por favor, ingrese su nombre: '); //pedimos un nombre
+            var apellidos = prompt('Por favor, ingrese sus dos apellidos: '); //pedimos apellidos
+                
+                var espace = apellidos.lastIndexOf(" "); //Creamos el Index en apellidos con el espacio
+                var apellido1 = apellidos.substring(0, espace); // Creamos el primer apellido desde cero hasta espacio
+                var apellido2 = apellidos.substring(espace + 1); // Creamos el segundo apellido desde espacio en adelante
+                nombre = nombre.toLowerCase(); //convertimos nombre a minusculas para validaciones 
+                apellidos = apellidos.toLowerCase(); //convertimos nombre a minusculas para validaciones
+
+
+            if (intentos < 3){ //mientras que falle menos de 3 veces hace esto
+                //comprobamos que tenga mas de 3 caracteres y que además incluya al menos una vocal el nombre y cada apellido
+
+                if (((nombre.length > 3) && (nombre.includes('a') || nombre.includes('e') || nombre.includes('i') || nombre.includes('o') || nombre.includes('u'))) 
+                    && ((apellido1.length > 3)&&(apellido2.length > 3)) && (apellido1.includes('a') || apellido1.includes('e') || apellido1.includes('i') || apellido1.includes('o') || apellido1.includes('u'))
+                    && ((apellido2.includes('a') || apellido2.includes('e') || apellido2.includes('i') || apellido2.includes('o') || apellido2.includes('u')))){
+                    salir = false; // si es correcto todo se acaba el bucle
+                }   else {// si no se cumple algo de lo anterior sumamos un intento al contador
+                        alert('Por favor ingrese un Nombre y dos Apellidos separados por un espacio. Deben tener cada uno al menos 3 caracteres');
+                        intentos++;
+                    }//fin del else
+
+            }   else{// si el contador llega al tope se envia un alert y se acaba el bucle
+                    alert('! No podemos realizar el registro ¡');
+                    salir = false;
+                }//fin del else
+        
+        }//fin del while1
+
+        //imprimimos el resultado en mayúsculas
+        document.write('<br>'+'<b>Nombre del trabajador: </b>' + '<span style="color:blue;"">'+ nombre.toUpperCase() 
+                    +'</span>'+ '<br>'+ '<b>Apellidos del trabajador: </b>'+ '<span style="color:blue;"">' + apellidos.toUpperCase()+'</span>'+'<br>');
+
+// ------------------------------------------------------------------------------------------------------------------------------------
+        salir = true; // reiniciamos variable
+
+        if (intentos == 3) {
+            salir = false;
+        } 
+        while (salir == true){ // condicion para salir del bucle cuando todo sea correcto
+            var fecha = prompt('Introduce la fecha de incorporación a la empresa: (dd/mm/yyyy)'); // pedimos fecha y formato
+            if (fecha == null) {// si está vacío pues se vuelve a pedir hasta que lo rellene
+                salir = true;
+            }   else{ // si lo rellena entonces:
+                    if (fecha.length == 10 && fecha.charAt(2) == "/" && fecha.charAt(5) == '/'){ // vemos que mide 10 caracteres y que tiene los '/' en su sitio correspondiente
+                        var dia = fecha.substr(0, 2); // extraemos la variable día del prompt
+                        var mes = fecha.substr(3, 2); // extraemos la variable mes del prompt
+                        var año = fecha.substr(6, 4); // extraemos la variable año del prompt
+
+                        // comprobamos que los datos de dias meses y años están dentro de parametros normales
+                            //que los meses tienen solo 12 y que dependiendo del mes tienen 30 o 31
+                        if ((dia <= 31 && dia > 0) && (mes <= 12 && mes > 0) && (año <= 2021 && año > 0) && 
+                            (((dia <= 31 && dia > 0) && (mes == "01") || (mes == "03") || (mes == "05") || (mes == "07") || (mes == "08") || (mes == "10") || (mes == "12")) ||
+                            ((dia <= 30 && dia > 0) && (mes == "02") || (mes == "04") || (mes == "06") || (mes == "09") || (mes == "11"))) ){
+
+                            salir = false; // si todo es correcto salimos del bucle
+
+                        }   else{
+                                salir = true; // si no coincide reiniciamos
+                            }
+                    }   else {
+                            salir = true;// si no coincide reiniciamos
+                        }           
+                }
+        }//fin del while  
+
+            //creamos la fecha intrudicida como objeto date
+            var fecha_introducida = new Date(año,mes,dia); // sacamos la fecha final ya como objeto date
+            var fechaIncorporacion = (fecha_introducida.getDate() + '/' + fecha_introducida.getMonth() + '/'+ fecha_introducida.getFullYear());
+           
+            //ahora obtenemos la hora actual
+            var fecha_actual = new Date();
+            //pintamos el dia que se incorporó
+            document.write('<br>'+'<b>La fecha de incorporación a la empresa fué el: </b>' + fechaIncorporacion);
+
+            //buscamos cuantos años lleva en la empresa
+            var años_en_empresa = fecha_actual - fecha_introducida;
+            //hacemos conversion a milisegundos
+            var conversion = 1000 * 60 * 60 * 24 * 365;
+            años_en_empresa = Math.trunc( años_en_empresa / conversion); //quitamos los decimales
+            //pintamos los años que lleva en la empresa
+            document.write('<br>' + '<b> Lleva trabajando para la empresa </b>' + años_en_empresa + '<b> años </b>');
+
+//------------------------------------------------------------------------------------------------------------------------------------------------
+            nombre = nombre.toUpperCase(); //Nombre a mayúsculas para la primera inicial
+            apellidos = apellidos.toLowerCase();
+            apellido1 = apellido1.toLowerCase(); 
+            apellido2 = apellido2.toLowerCase();// todo lo demás a minúsculas para mostrarlo después
+        var apellidos_juntos = [apellido1 , apellido2] // lo convertimos en array para extraer caracteres
+
+        document.write('<br>'+'<br>'+'<b> Nombre de usuario: </b>'+ nombre.charAt(0) +  //Inicial del nombre que está en mayúsculas
+                    apellidos_juntos[0].charAt(0)+ apellidos_juntos[0].charAt(1)+ apellidos_juntos[0].charAt(2)+ apellidos_juntos[0].charAt(3)+ apellidos_juntos[0].charAt(4)+ apellidos_juntos[0].charAt(5)  //letras del primer apellido hasta 6 valores
+                    + apellidos_juntos[1].charAt(0))//la primera letra del segundo apellido
+
+        var nombreCompleto = nombre + ' ' + apellido1 + ' ' + apellido2; // sumamos las cadenas para crear el nombre completo
+            // nombreCompleto = nombreCompleto.toUpperCase(); -->
+
+
+            nombreCompleto = nombreCompleto.charAt(Math.floor((Math.random() * nombreCompleto.length) + 1));
+                while (nombreCompleto == '' || nombreCompleto == null) {
+                    nombreCompleto = nombreCompleto.charAt(Math.floor((Math.random() * nombreCompleto.length) + 1));
+                }
+
+
+        document.write('<br>' + '<b>Tu clave es: </b>' + nombreCompleto + fecha_introducida.getDate() + fecha_introducida.getMonth() +  fecha_introducida.getFullYear());
+
+        if (intentos <3){
+            var opciones = confirm('Todo Correcto: \n \¿Quieres acceder al sitio\?');
+            if(opciones == true ) {
+              window.open('index.html','nueva','height=1024,width=768');
+            } 
+        }   
+          
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="author" content="Pedro.J"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="description" content="Tarea 03 Desarrollo web entorno cliente"> 
+    <title>Tarea03_02</title>
+</head>
+<body>
+
+<h1>“Bienvenido al sitio de la empresa X y la fecha de hoy es X”</h1>
+
+<script type="text/javascript">
+		
+	function displayAlert(){ // primer boton con funcion de mostrar alet
+			alert('Bien, desde un "alert" te digo que este no hace nada más. Pulsa el siguiente.');
+	}	
+
+
+	function buscadores(){// tercer boton con funcion de redireccionar páginas
+		var numMenu; //metemos desde un prompt una de las dos opciones que doy
+		numMenu = prompt ('¡Bienvenido al menú de buscadores!\n Por favor elige un número entre:\n1. Para abrir en nueva pestaña \n2. Para abrir en nueva ventana');
+
+		while (numMenu == null) {  // si cancelamos se repite
+			numMenu = prompt ('¡Bienvenido al menú de buscadores!\n Por favor elige un número entre:\n1. Para abrir en nueva pestaña \n2. Para abrir en nueva ventana');
+		}
+
+		switch(parseInt(numMenu)){
+
+			case 1: {
+				window.open('pestaña1.html','nueva','height=500,width=500'); // abrimos ventana1.html con esas dimensiones en nueva pestaña
+				break;
+			}  
+
+			case 2:{
+				window.open('ventana1.html'); //abrimos una nueva ventana
+				break;
+			}
+
+			default:{
+				break;
+			}
+		}//fin switch
+
+	}// fin function buscadores
+
+	function disp_confirm(){ //botón extra para verificar que pasa cuando aceptas y cuando cancelas
+		var confirmacion = confirm('Pulsa el botón \'Aceptar\' para aprobarme y no pasará nada')
+		if (confirmacion == true){
+			alert ('¡Gracias por aprobarme!');
+		}	 else { 
+				alert('¡No le dejaré continuar!');
+				alert('Es broma');
+				confirmacion = true;
+			}
+	}//fin boton dos
+
+</script>
+
+	<button onclick="displayAlert()"> Primero pulsa aqui </button>
+	<button onclick="disp_confirm()">Luego pulsa aqui</button>
+	<button onclick="buscadores()">Por último pulsa aqui</button>
+
+</body>
+</html>

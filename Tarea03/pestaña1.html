@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="author" content="Pedro.J"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="description" content="Tarea 03 Desarrollo web entorno cliente"> 
+    <title>Tarea03_03</title>
+</head>
+<body>
+
+<h1>Esta es la página informativa</h1>
+
+ <h2>¡Pero date prisa en leer!</h2>
+
+<script type="text/javascript">
+
+		function actualizar(){//creamos una función para recargar páginas
+            location.reload(true);
+        }
+
+
+		function informacionPag(){
+
+            document.write("La <b> URL </b> completa de esta página es: " + '<em>' + location.href +'</em>'+ "<br>");  // con negritas y cursvias
+            document.write("<br>" + "Ahora veremos el nombre del <b> servidor </b> y el numero de <b> puerto </b>: "+'<em>' + location.host +'</em>'+ "<br>");
+            document.write("<br>" + "Estamos viendo el <b> camino </b> a seguir de la URL: " + location.pathname + "<br>");
+            document.write("<br>"+" <b> Protocolo </b> utilizado dentro de la URL en la que viajamos: " + location.protocol + "<br>");
+            document.write("<br>"+"<br>"+'<b>Te doy 6 segundos para leer esta información');
+                        
+             //Función para actualizar cada 6 segundos(6000 milisegundos)
+            setInterval("actualizar()",6000);
+
+        }
+        
+
+        function informacionPag2(){
+
+		    document.write('<b>¿Están las cookies habilitadas?: </b>'+ navigator.cookieEnabled+ "<br>");
+		    document.write("<br>"+ '<b>Nombre en código del navegador: </b>'+ navigator.appCodeName+ "<br>");
+		    document.write("<br>"+ '<b>Información sobre la versión del cliente: </b>' + navigator.appVersion+ "<br>");
+		    document.write("<br>"+"<br>"+'<b> Para esta te doy 8 segundos');
+        
+            //Función para actualizar cada 8 segundos    
+		    setInterval("actualizar()",8000);
+        }
+
+
+        function informacionPag3(){
+
+		    document.write('<b>Volverá atrás en 10 segundos</b>');
+            document.write('<br>' + '<br>' + 'Aprovecho esta tarea para decirle que me gusta mucho tu asignatura. <br> También para decir que el temario no es lo más óptimo pero que poco a poco va saliendo. Si pudiera enviar ejercicios sueltos sería muy de ayuda <br> Que tenga buen día. <br>Namasté.');
+            
+            //Función para actualizar cada 10 segundos
+		    setInterval("actualizar()",10000);
+        }
+
+
+	</script>
+	<button onclick="informacionPag()">Infórmate sobre la página</button>
+	<button onclick="informacionPag2()">Infórmate sobre la página</button>
+	<button onclick="informacionPag3()">Infórmacion final</button>
+</body>
+</html>
