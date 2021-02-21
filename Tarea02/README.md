@@ -1,7 +1,7 @@
-# DWEC
-Curso Desarrollo Web Entorno Cliente 
-Estudiante y Autor: Pedro.J
-Calificación: 9,5.
+# DWEC / 
+Curso Desarrollo Web Entorno Cliente / 
+Estudiante y Autor: Pedro.J / 
+Calificación: 9,5. / 
 Observaciones: Se podría mejorar quitando operaciones redundantes. 
   Ej: Relleno los arrays para el tema del max y el min y después lo calculo, perfectamente podría realizarlo todo de una vez
  
