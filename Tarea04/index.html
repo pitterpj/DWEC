@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="author" content="Pedro.J"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="description" content="Tarea 04 Desarrollo web entorno cliente"> 
+    <title>Tarea04</title>
+    <script src="script2.js"></script>
+</head>
+
+<body>
+    <script>
+        //variable para guardar las empresas que vaya creando
+        var listEmpresas = [];
+        var hoy = new Date();
+
+        //primero desplegamos el menú enseñándo las opciones
+        do {
+            var menu = prompt('Por favor elige una de las siguientes opciones: \n1. Insertar datos automáticamente \n2. Insertar Empresa \n3. Agregar nuevo trabajador \n4. Listado trabajadores \n5. Cesetrabajador \n6. Cambio de puesto \n7. Imprimir  ');
+
+            //creamos el switch para cada opción elegida
+            switch (parseInt(menu)) {//parseInt para convertir a número y evitar errores
+                case 1://Automático -----------------------------------------------------------------------------------------------
+                    //creamos la primera empresa automatica
+                    var empresaAutoUno = new Empresa('EMPRESA1', 'B06653940', 'AVENIDA EUROPA 5 MADRID', '912323234', 'LUIS GOMEZ');
+                    listEmpresas.push(empresaAutoUno);
+                    //añadimos trabajadores de forma automática
+                    empresaAutoUno.addTrabajador('08186167S', 'JUAN JOSE', 'GARCÍA CARRIÓN', '01/01/1989', 'COMERCIAL', '30000', 'MADRID');
+                    empresaAutoUno.addTrabajador('09186168S', 'MARTA', 'ARRIBAS DERECHA', '01/01/2008', 'DIRECTORA', '40000', 'MOSTOLES');
+                    empresaAutoUno.addTrabajador('09186169S', 'FELIPE', 'GONZÁLEZ PEREZ', '01/01/2019', 'TECNICO', '15000', 'PARLA');
+
+                    //creamos la segunda empresa automatica
+                    var empresaAutoDos = new Empresa('EMPRESA2', 'B06653941', 'AVENIDA EUROPA 7 MADRID', '912323232', 'LAURA SIMOES');
+                    listEmpresas.push(empresaAutoDos);
+                    ////añadimos trabajadores de forma automática  
+                    empresaAutoDos.addTrabajador('08186167S', 'BARTOLOME', 'GARCÍA CARRIÓN', '01/01/1987', 'COMERCIAL', '30000', 'MADRID');
+                    empresaAutoDos.addTrabajador('08186168S', 'JIMENA', 'ARRIBAS DERECHA', '01/01/2007', 'DIRECTORA', '40000', 'MOSTOLES');
+                    empresaAutoDos.addTrabajador('08186169S', 'LUISA', 'GONZÁLEZ PEREZ', '01/01/2018', 'TECNICO', '15000', 'PARLA');
+
+                    break;//Fin caso 1
+
+                //Insertar Empresa-------------------------------------------------------------------------------------------------
+                case 2:
+                    var nombre_comercial = prompt('Nombre la nueva empresa: ');
+                    var cif = prompt('Especifique C.I.F: ').toUpperCase();
+                    var direccion = prompt('Dirección de la empresa: ');
+                    var telefono = prompt('Teléfono: ');
+                    var admin = prompt('Administrador de la empresa: ');
+
+                    while (nombre_comercial == ''  //El nombre no está vacio
+                        || cif.length != 9 || cif == '' || (cif.charAt(8) != "A" && cif.charAt(8) != "B" && cif.charAt(8) != "C" && cif.charAt(8) != "D" && cif.charAt(8) != "E" && cif.charAt(8) != "F" && cif.charAt(8) != "G" && cif.charAt(8) != "H" && cif.charAt(8) != "I" && cif.charAt(8) != "J" && cif.charAt(8) != "K" && cif.charAt(8) != "L" && cif.charAt(8) != "M" && cif.charAt(8) != "N" && cif.charAt(8) != "O" && cif.charAt(8) != "P" && cif.charAt(8) != "Q" && cif.charAt(8) != "R" && cif.charAt(8) != "S" && cif.charAt(8) != "T" && cif.charAt(8) != "U" && cif.charAt(8) != "V" && cif.charAt(8) != "W" && cif.charAt(8) != "X" && cif.charAt(8) != "Y" && cif.charAt(8) != "Z")  //Cif mida 9 caracteres y no esté vacio
+                        || direccion == '' // la dirección no esté vacia
+                        || telefono.length != 9 || isNaN(telefono) //tenga 9 caracteres y sean numéricos
+                        || admin == '') {// no esté vacio
+                        //cuando son incorrectos damos un mensaje de alert y volvemos a pedir pero más concretamente
+                        alert('¡Datos incorrectos vuelva a intentarlo!')
+                        var nombre_comercial = prompt('Nombre la nueva empresa: ');
+                        var cif = prompt('Especifique C.I.F: (8 digitos + 1 letra)').toUpperCase();
+                        var direccion = prompt('Dirección de la empresa: ');
+                        var telefono = prompt('Teléfono: (9 digitos)');
+                        var admin = prompt('Administrador de la empresa: ');
+                    }//Fin del while
+
+                    //Si inroduce todo bien añadimos la empresa al Array
+                    listEmpresas.push(new Empresa(nombre_comercial, cif, direccion, telefono, admin));
+
+                    break;//Fin insertar empresas
+
+                //Insertar nuevo trabajador ----------------------------------------------------------------------------------------
+                case 3:
+
+                    //Pedimos el nombre de la empresa que queremos actualizar    
+                    var nombreEmpresa = prompt('Inserta el nombre de la empresa a gestionar');
+
+                    for (emp of listEmpresas) { //recorremos los valores de cada empresa de la lista de empresas
+                        if (emp.nombre_comercial == nombreEmpresa) { //si coincide la propiedad con la introducida
+                            var dni = prompt('D.N.I. del trabajador: ');
+                            //antes de seguir al introducir el dni comprobamos que no está ya dado de alta en la empresa
+                            var datos = emp.comDNI(dni);
+                            if (datos == false) {
+                                var nombre = prompt('Nombre del trabajador: ');
+                                var apellidos = prompt('Apellidos del trabajador: ');
+                             //-------validamos fecha introducida------------
+                                var validarFecha = false;
+                                while (!validarFecha){
+                                    var fecha_inc = prompt('Fecha de incorporación: ');
+                                    validarFecha = verificarFecha(fecha_inc);
+                                    if(!validarFecha){
+                                        alert('Fecha errónea');
+                                    }else{
+                                        validarFecha = true;
+                                    }
+                                }
+                             //--------------------------------------------                                                    
+                                var puesto = prompt('Puesto a desempeñar: ');
+                                var sueldo = prompt('Sueldo anual: ');
+                                var poblacion = prompt('Población: ');
+
+                                emp.addTrabajador(dni, nombre, apellidos, fecha_inc, puesto, sueldo, poblacion);//le añadimos el nuevo trabajador
+
+                            } else {
+                                alert('Este trabajador ya está dado de Alta');
+                            }
+                        }
+                    }
+
+                    break;//Fin nuevo trabajador 
+
+                    //Listado de trabajadores-------------------------------------------------------------------------------------------
+                    case 4:
+
+                    var nombreEmpresa = prompt('Inserta el nombre de la empresa a gestionar');
+
+                    for (emp of listEmpresas) { //recorremos los valores de cada empresa de la lista de empresas
+                        if (emp.nombre_comercial == nombreEmpresa) {
+                            abrirVentana();
+                        }
+                    }
+
+                    break;//Fin listado de trabajadores
+
+                    //Cesetrabajador---------------------------------------------------------------------------------------------------    
+                    case 5:
+                    var nombreEmpresa = prompt('Inserta el nombre de la empresa a gestionar');
+
+                    for (emp of listEmpresas) { //recorremos los valores de cada empresa de la lista de empresas
+                        if (emp.nombre_comercial == nombreEmpresa) {
+                            var dni = prompt('D.N.I. del trabajador: ');
+                            //antes de seguir al introducir el dni comprobamos que no está ya dado de alta en la empresa
+                            var datos = emp.comDNI(dni);
+                           if (datos == true) {
+                               ceseTrabajador();
+                                
+                            } else {
+                                alert('Este trabajador no está dado de alta en esta empresa');     
+                            }
+                        }
+                    }
+
+                    break;//Fin cesetrabajador
+                    
+                    //Cambio de puesto de trabajo--------------------------------------------------------------------------------------
+                    case 6:
+                    var nombreEmpresa = prompt('Inserta el nombre de la empresa a gestionar','EMPRESA1');
+
+                    for (emp of listEmpresas) { 
+                        if (emp.nombre_comercial == nombreEmpresa) {
+                            var dni = prompt('D.N.I. del trabajador: ');
+                            var datos = emp.comDNI(dni);
+                           if (datos == true) {
+                                var puesto_modificado = prompt('Nuevo puesto');
+                                for( j=0; j < emp.trabajadores.length;j++){
+                                    if (emp.trabajadores[j].dni == dni){
+                                        emp.trabajadores[j].modificarPuesto(puesto_modificado)
+                                    }
+                                }                               
+                            } else {
+                                alert('Este trabajador no está dado de alta en esta empresa');    
+                            }
+                        }
+                    }
+                    
+                    break;//Fin cambio de puesto de trabajo 
+
+                    case 7: mostrarEmpresas(); break;
+
+                default: break;
+                //----------------------
+            } //fin switch
+        } while (menu != 0);
+
+
+
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+var empresaAutoUno = new insEmpresa('EMPRESA1', 'B06653940', 'AVENIDA EUROPA 5 MADRID', '912323234', 'LUIS GOMEZ');
+listEmpresas.push(empresaAutoUno); -->
