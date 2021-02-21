@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="author" content="Pedro.J"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="description" content="Tarea 02 Desarrollo web entorno cliente"> 
+    <title>Tarea02</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        var numMenu;
+
+        do {
+            numMenu = prompt ('Bienvenido al menú de operaciones super complicadas. Por favor elige un número entre:\n1. Media\n2. Mínimo\n3. Máximo\n4. Sumatorio\n5. ¿Es divisible?\n6. ¿Par o Impar?\n7. Salir');
+
+                //Comprobamos que el valor introducido es un número.
+              while (parseInt(numMenu) == isNaN) { 
+                numMenu = prompt ('Bienvenido al menú de operaciones super complicadas. Por favor, debe ser un número, elige entre: \n1. Media\n2. Mínimo\n3. Máximo\n4. Sumatorio\n5. ¿Es divisible?\n6. ¿Par o Impar?\n7. Salir');
+               }
+            document.write('Has elegido la opción: '+ numMenu + '<br>');
+      
+        switch(parseInt(numMenu)){
+
+                case 1:
+// --------------------------------MEDIA------------------------ 
+                    var numero =[];
+                    var media = 0;
+                    var i;
+                    var suma = 0;
+                    for ( i = 0; i < 5; i++){ // hacemos que de 5 vueltas como dice el ejercicio
+                        numero[i] =parseInt( prompt('Ingrese números para calcular su media'));
+
+                        if (numero[i] != 0){// en caso de que pongamos cero se para 
+                            suma = suma + numero[i]; //vamos sumando cada numero al anterior introducido
+                            media = suma/numero.length; // decimos que la media es la suma entre el numero de vueltas
+                        }else{
+                            break;
+                        }
+                    }
+                    document.write('Los números introducidos son: ' + numero + '<br>' );
+                    document.write('La media de esos números es = ' + media + '<br>' );        
+                break;               
+                case 2:
+// ------------------------MINIMMO---------------------
+                    var min = [];
+                    var menor;
+
+                    for (var i = 1; i <= 5; i++){/* le damos valor 1 a la i por lo tanto ponemos el igual más adelante para el menú que explico ahora */
+                        min[i] = parseInt(prompt("Introduce"+' '+ i + " de 5 números para saber cuál es el mínimo: ")); /* Le decimos que nos muestre que vueltas lleva la i */
+                    }
+                    document.write('Los números introducidos son: ' + min + '<br>' );
+                        /* Declaramos la variable J para no confundir con la var i anterior. 
+                        El programa la lee correctamente si ponemos i en la siguiente variable pero sería incorrecto*/
+                    for(var j = 0; j < min.length; j++){
+                        if (parseInt(min[j]) > parseInt(menor)){
+                            menor = menor; /* hacemos la comprobación con los números introducidos, si el nuevo es mas pequeño se convierte en el "menor" */
+                        }else{
+                            menor = min[j]; /* si ya es el menor se queda como está*/
+                        }
+                    }
+                    document.write('<br>' + 'El menor de todos ellos es: ' +  menor + '<br>');
+                break;            
+                case 3:
+//---------------------------MAXIMO----------------------------------
+                    var numero = [];
+                    var max;       
+
+                    for ( var i = 1; i <= 5; i++){
+                        numero[i] = parseInt(prompt("Introduce"+' '+ i + " de 5 números para saber cuál es el máximo: "));
+                    }
+                    document.write('Los números introducidos son:' + numero + '<br>');
+                    for( var j = 0; j < numero.length; j++){
+                        if (parseInt(numero[j]) < parseInt(max)){ //IGUAL que el anterior solo cambiando el símbolo para realizar el máximo
+                            max = max;
+                        } else {
+                            max = numero[j];
+                        }
+                    }
+                    document.write('<br>' + 'El mayor de todos ellos es: ' +  max + '<br>');
+                break;
+                case 4:
+//--------------------------------SUMATORIO----------------------------
+                    var numero =[];
+                    var suma = 0;
+                    
+                    for (var i = 0; i < 4; i++){ // aquí ponemos solo que de 4 vueltas como nos pide el enunciado
+                        numero[i] = parseInt(prompt("Ingrese 4 números para sumarlos"));				
+                        suma = suma + numero[i]; // hacemos la suma de los números introducidos
+                    }
+                    document.write('Los números introducidos son: ' + numero + '<br>' );
+
+                    if (suma > 1000) { // ponemos la condicion de si es + de 1000 salte otro mensaje
+                        document.write( 'Estamos fuera de rango' + '<br>');
+                    }
+                    else { // si no se pasa de 1000 todo continua normal
+                        document.write('La suma de esos números es = ' + suma + '<br>' );
+                    }
+                break;
+                case 5:
+//--------------------- DIVISIBLE ------------------------
+                    var numeros = [];
+                    for ( var i = 0; i < 2; i++) {
+                        numeros[i] = parseInt(prompt('Ingresa dos numeros para divivir'));
+                        var num1 = numeros[0];
+                        var num2 = numeros[1];
+                        var division = num1 / num2;
+                    }
+                    document.write('Los números introducidos son: ' + numeros + '<br>' );
+
+                    while (num1 < num2) {
+                        for ( var i = 0; i < 2; i++) {
+                            numeros[i] = parseInt(prompt('Ingresa dos numeros para divivir, el primero debe ser mayor que el segundo'));
+                            var num1 = numeros[0];
+                            var num2 = numeros[1];
+                            var division = num1 / num2;   
+                        }
+                    }
+
+                    if (num1 % num2 == 0) {
+                            document.write('El número es divisible'+ '<br>' )
+                    }    
+                    else {
+                        document.write(' es divisible con decimales'+ '<br>')
+                    }
+
+                    document.write('El resultado de la division es: ' + division + '<br>');
+                break;                 
+                case 6:
+// ---------------------------//calcular números pares--------------------------------------- 
+                    var numero; 
+                    var resultado;               
+                        numero = prompt ('Introduce para saber si es Par');
+
+                        if( numero % 2 == 0){ /* si el resto de la division es igual a cero es que es par*/ 
+                            document.write('El numero es Par' + '<br>')
+                        }else { /* En caso contrario nos diría que el número es impar*/
+                            document.write ('El numero es Impar'+ '<br>')
+                        }
+
+                break;         
+                case 7:
+
+                    document.write('Gracias por utilizar nuestros servicios, durante su visita usted eligió las siguientes opciones: ' +  numMenu );                    
+
+                break;
+            //----------------------------DEFAULT-----------------------
+                default: break;
+        } // del Switch
+        }// del do  
+                while (numMenu !=7); // Repetir hasta que elija una de nuestras opciones //
+    </script>
+</body>
+</html>
